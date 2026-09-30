@@ -17,22 +17,43 @@ function heroScrollState(distance, viewportHeight, reducedMotion = false) {
   };
 }
 
-if (typeof module !== 'undefined') module.exports = { nextShowcasePosition, heroScrollState };
+function drawingProgress(top, viewportHeight, reducedMotion = false) {
+  return reducedMotion ? 1 : Math.max(0, Math.min(1, (viewportHeight * .95 - top) / (viewportHeight * .75)));
+}
+
+if (typeof module !== 'undefined') module.exports = { nextShowcasePosition, heroScrollState, drawingProgress };
 
 if (typeof document !== 'undefined') (() => {
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const drawings = [...document.querySelectorAll('[data-drawing]')];
+  if (drawings.length) {
+    let drawingFrame = 0;
+    const paintDrawings = () => {
+      drawingFrame = 0;
+      drawings.forEach(drawing => {
+        const progress = drawingProgress(drawing.getBoundingClientRect().top, window.innerHeight, motion.matches);
+        drawing.querySelectorAll('[pathLength]').forEach((stroke, index) => {
+          const drawn = motion.matches ? 1 : Math.max(0, Math.min(1, progress * 1.4 - (index % 7) * .065));
+          stroke.style.strokeDasharray = '1';
+          stroke.style.strokeDashoffset = String(1 - drawn);
+        });
+        drawing.style.setProperty('--drawing-progress', progress);
+      });
+    };
+    const scheduleDrawings = () => { if (!drawingFrame) drawingFrame = requestAnimationFrame(paintDrawings); };
+    window.addEventListener('scroll', scheduleDrawings, { passive: true });
+    window.addEventListener('resize', scheduleDrawings);
+    motion.addEventListener('change', scheduleDrawings);
+    paintDrawings();
+  }
   const film = document.querySelector('[data-hero-film]');
-  const filmControl = document.querySelector('[data-hero-film-control]');
-  if (film && filmControl) {
+  if (film) {
     const phone = window.matchMedia('(max-width: 767px)');
-    let manuallyPaused = false;
     let inView = true;
     let unavailable = false;
-    const syncFilmControl = () => {
-      filmControl.textContent = film.ended ? 'Replay film' : film.paused ? 'Play film' : 'Pause film';
-    };
+    film.loop = true;
     const playFilm = () => {
-      film.play().catch(() => { syncFilmControl(); });
+      film.play().catch(() => { film.classList.remove('is-ready'); });
     };
     const configureFilm = () => {
       if (motion.matches || navigator.connection?.saveData) {
@@ -40,7 +61,6 @@ if (typeof document !== 'undefined') (() => {
         film.removeAttribute('src');
         film.load();
         film.classList.remove('is-ready');
-        filmControl.hidden = true;
         return;
       }
       if (unavailable) return;
@@ -49,26 +69,13 @@ if (typeof document !== 'undefined') (() => {
         film.classList.remove('is-ready');
         film.src = source;
         film.muted = true;
-        filmControl.hidden = false;
       }
-      if (inView && !document.hidden && !manuallyPaused && !film.ended) playFilm();
+      if (inView && !document.hidden) playFilm();
     };
-    film.addEventListener('loadeddata', () => { film.classList.add('is-ready'); });
-    ['play', 'pause', 'ended'].forEach(event => film.addEventListener(event, syncFilmControl));
+    film.addEventListener('playing', () => { film.classList.add('is-ready'); });
     film.addEventListener('error', () => {
       unavailable = true;
       film.classList.remove('is-ready');
-      filmControl.hidden = true;
-    });
-    filmControl.addEventListener('click', () => {
-      if (film.paused || film.ended) {
-        manuallyPaused = false;
-        if (film.ended) film.currentTime = 0;
-        playFilm();
-      } else {
-        manuallyPaused = true;
-        film.pause();
-      }
     });
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) film.pause();

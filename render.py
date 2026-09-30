@@ -91,6 +91,7 @@ def context(data, page):
     values["contact_phone_display"] = esc(f"+91 {number[2:7]} {number[7:]}" if number.startswith("91") and len(number) == 12 else "+" + number)
     values["closing_cta_href"] = values["contact_whatsapp_url"] if page == "contact" else "contact.html"
     values["closing_cta_label"] = "WhatsApp RJ" if page == "contact" else "Start a conversation"
+    values["closing_drawing"] = (ROOT / "assets/section-entrance-detail.svg").read_text() if page == "home" else ""
     values.update({f"nav_{key}_current": ' aria-current="page"' if key == page else ''
                    for key in ("work", "studio", "process", "contact")})
     return values
@@ -147,6 +148,9 @@ def render(data, selected=None):
         values = context(data, key)
         info = data["home"] if key == "home" else data["pages"][key]
         values.update({name: esc(value) for name, value in info.items() if not isinstance(value, (dict, list))})
+        if key == "home":
+            values["material_drawing"] = (ROOT / "assets/section-material-detail.svg").read_text()
+            values["spatial_drawing"] = (ROOT / "assets/section-spatial-plan.svg").read_text()
         values["project_cards"] = "\n".join(project_card(p) for p in data["projects"])
         values["showcase_cards"] = "\n".join(
             f'<a class="showcase-card" href="{esc(p["id"])}.html" data-showcase-card>'

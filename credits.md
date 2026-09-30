@@ -20,3 +20,5 @@ Prata and Manrope are self-hosted from the official [Google Fonts repository](ht
 The two `hero-woven-*.mp4` files are original, silent eight-second animations made with HyperFrames from original AI-generated textile/floor-plan stills. Their JPEG companions are final-frame fallbacks. They illustrate a fictional architectural plan, not a completed client project. No For Living media is used. The source stills were below native 4K resolution.
 
 The architectural SVG ornaments are original drawings created for this demonstration.
+
+`hero-woven-extension.jpg` is an original AI-generated fabric and embroidery illustration based on the film's final frame. `section-material-detail.svg`, `section-spatial-plan.svg` and `section-entrance-detail.svg` are original technical illustrations used for scroll-driven drawing effects.

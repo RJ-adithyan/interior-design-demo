@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="section-drawing" data-drawing="true">
+  <g stroke-width="2">
+    <path d="M70 62H650V458H70Z" pathLength="1"/>
+    <path d="M88 80H632V440H88Z" pathLength="1"/>
+    <path d="M88 246H260V80M88 342H260V440M460 80V176H632M460 342H632V440" pathLength="1"/>
+    <rect x="260" y="176" width="200" height="166" pathLength="1"/>
+    <rect x="278" y="194" width="164" height="130" pathLength="1"/>
+    <path d="M278 194H442M278 324H442M278 194V324M442 194V324" pathLength="1"/>
+    <path d="M260 246A86 86 0 0 1 346 332M260 246V332H346" pathLength="1"/>
+    <path d="M460 176A84 84 0 0 0 544 260M460 176V260H544" pathLength="1"/>
+    <path d="M460 342A84 84 0 0 1 544 426M460 342V426H544" pathLength="1"/>
+  </g>
+  <g stroke-width="1.4">
+    <rect x="106" y="98" width="116" height="26" pathLength="1"/>
+    <rect x="106" y="132" width="116" height="26" pathLength="1"/>
+    <path d="M118 98V124M138 98V124M158 98V124M178 98V124M198 98V124M118 132V158M138 132V158M158 132V158M178 132V158M198 132V158" pathLength="1"/>
+    <rect x="106" y="270" width="118" height="48" rx="5" pathLength="1"/>
+    <rect x="126" y="284" width="78" height="20" rx="3" pathLength="1"/>
+    <circle cx="112" cy="294" r="7" pathLength="1"/>
+    <circle cx="218" cy="294" r="7" pathLength="1"/>
+    <rect x="110" y="360" width="110" height="54" rx="4" pathLength="1"/>
+    <path d="M128 360V414M146 360V414M164 360V414M182 360V414M200 360V414" pathLength="1"/>
+    <rect x="498" y="98" width="112" height="54" rx="3" pathLength="1"/>
+    <path d="M516 98V152M534 98V152M552 98V152M570 98V152M588 98V152" pathLength="1"/>
+    <path d="M512 112H596M512 130H596" pathLength="1"/>
+    <rect x="498" y="276" width="112" height="42" pathLength="1"/>
+    <path d="M516 276V318M534 276V318M552 276V318M570 276V318M588 276V318" pathLength="1"/>
+    <path d="M292 208H428V310H292Z" pathLength="1"/>
+    <circle cx="312" cy="228" r="8" pathLength="1"/>
+    <circle cx="408" cy="228" r="8" pathLength="1"/>
+    <circle cx="312" cy="290" r="8" pathLength="1"/>
+    <circle cx="408" cy="290" r="8" pathLength="1"/>
+    <path d="M346 258H374M360 244V272" pathLength="1"/>
+    <path d="M292 350H428M292 366H428M292 382H428M292 398H428" pathLength="1"/>
+    <path d="M478 352H612M478 368H612M478 384H612M478 400H612" pathLength="1"/>
+    <path d="M478 352V400M496 352V400M514 352V400M532 352V400M550 352V400M568 352V400M586 352V400" pathLength="1"/>
+  </g>
+  <g stroke-width="1.5">
+    <path d="M70 40H650M70 40V28M650 40V28" pathLength="1"/>
+    <path d="M70 22V52M130 22V52M190 22V52M250 22V52M310 22V52M370 22V52M430 22V52M490 22V52M550 22V52M610 22V52M650 22V52" pathLength="1"/>
+    <path d="M34 62V458M34 62H22M34 458H22" pathLength="1"/>
+    <path d="M16 62H46M16 122H46M16 182H46M16 242H46M16 302H46M16 362H46M16 422H46M16 458H46" pathLength="1"/>
+    <path d="M268 176L246 154L246 128" pathLength="1"/>
+    <path d="M460 176L482 154L482 128" pathLength="1"/>
+    <path d="M260 342L238 364L238 390" pathLength="1"/>
+    <path d="M460 342L482 364L482 390" pathLength="1"/>
+    <circle class="drawing-dot" cx="246" cy="128" r="4" pathLength="1" fill="currentColor" stroke="none"/>
+    <circle class="drawing-dot" cx="482" cy="128" r="4" pathLength="1" fill="currentColor" stroke="none"/>
+    <circle class="drawing-dot" cx="238" cy="390" r="4" pathLength="1" fill="currentColor" stroke="none"/>
+    <circle class="drawing-dot" cx="482" cy="390" r="4" pathLength="1" fill="currentColor" stroke="none"/>
+    <circle cx="360" cy="258" r="20" pathLength="1"/>
+    <path d="M350 258H370M360 248V268" pathLength="1"/>
+  </g>
+</svg>
