@@ -68,6 +68,31 @@ if (typeof document !== 'undefined') (() => {
     phone.addEventListener('change', configureFilm);
     configureFilm();
   }
+  const craftFilm = document.querySelector('[data-craft-film]');
+  if (craftFilm) {
+    let visible = !('IntersectionObserver' in window);
+    let failed = false;
+    const syncCraftFilm = () => {
+      if (motion.matches || navigator.connection?.saveData) {
+        craftFilm.pause();
+        craftFilm.removeAttribute('src');
+        craftFilm.load();
+        craftFilm.classList.remove('is-ready');
+      } else if (visible && !document.hidden && !failed) {
+        if (!craftFilm.getAttribute('src')) craftFilm.src = craftFilm.dataset.src;
+        craftFilm.muted = true;
+        craftFilm.play().catch(() => craftFilm.classList.remove('is-ready'));
+      } else craftFilm.pause();
+    };
+    craftFilm.addEventListener('playing', () => craftFilm.classList.add('is-ready'));
+    craftFilm.addEventListener('error', () => { failed = true; craftFilm.classList.remove('is-ready'); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => { visible = entries[0].isIntersecting; syncCraftFilm(); }, { threshold: .01 }).observe(craftFilm.parentElement);
+    }
+    document.addEventListener('visibilitychange', syncCraftFilm);
+    motion.addEventListener('change', syncCraftFilm);
+    syncCraftFilm();
+  }
   const hero = document.querySelector('.home-hero');
   if (hero) {
     const intro = hero.querySelector('.hero-main');

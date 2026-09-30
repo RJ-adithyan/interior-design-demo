@@ -209,7 +209,7 @@ class PageLinks(HTMLParser):
         if tag in ("a", "link", "script"):
             self.links.append(attrs.get("href", attrs.get("src", "")))
         if tag == "video":
-            self.links.extend(attrs[key] for key in ("src", "poster", "data-desktop-src", "data-mobile-src") if key in attrs)
+            self.links.extend(attrs[key] for key in ("src", "poster", "data-src", "data-desktop-src", "data-mobile-src") if key in attrs)
         if tag == "source":
             if "src" in attrs:
                 self.links.append(attrs["src"])

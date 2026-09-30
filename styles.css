@@ -72,3 +72,13 @@
 :is(.craft-section,.home-services,.closing-cta,.site-footer,.fl-page-intro,.fl-about-intro,.fl-services-intro,.fl-contact,.fl-project-intro)::before{content:none!important}
 :is(.craft-heading,.showcase-heading .heading,.home-services .heading,.origin-copy .heading,.fl-page-intro .display,.fl-about-intro .display,.fl-services-intro .heading,.fl-contact-copy .display,.fl-project-heading .display)::before{content:none!important}
 .material-board{background:none}
+
+/* Quiet natural light behind the materials section only. */
+.craft-section{overflow:hidden}
+.craft-section>.craft-film{position:absolute;inset:0;z-index:0;pointer-events:none}
+.craft-film img,.craft-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.craft-film video{opacity:0;transition:opacity .5s ease}
+.craft-film video.is-ready{opacity:1}
+.craft-film::after{content:"";position:absolute;inset:0;background:rgb(242 232 212 / .46)}
+.craft-section .craft-panel{background:rgb(250 246 237 / .9)}
+@media(prefers-reduced-motion:reduce){.craft-film video{transition:none}}

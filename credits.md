@@ -1,5 +1,7 @@
 # Photography and fonts
 
+Craft-section plant-shadow video: supplied by the site owner following this [Pinterest reference](https://in.pinterest.com/pin/419538521547629905/). The video stream is unchanged; audio was removed for background use. `craft-light.jpg` is a still from the same clip.
+
 The card backdrop is the continuing hero film. Generated forest fabric, red architectural extension and decorative SVG backgrounds from earlier iterations are superseded and unused in the current interface. The credited textile photograph still appears in the material study.
 
 Photographs are used under the [Pexels license](https://www.pexels.com/license/). Contributors and photographed properties do not endorse this fictional studio.

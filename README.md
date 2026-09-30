@@ -6,6 +6,8 @@ Original implementation with a For Living-inspired structure, Prata and Manrope 
 
 The homepage continuously loops an eight-second textile-to-architecture film, with separate landscape and portrait files and no playback buttons. Only the screen-appropriate video loads; reduced-motion and data-saving preferences receive a still image. The same film stays pinned behind the opening photo cards as they scroll over it. Decorative architectural background patterns are disabled.
 
+The 'Character begins with the details' section has a silent plant-shadow video background. It loads when the section enters view, pauses offscreen, and keeps a still-image fallback for reduced-motion and data-saving preferences.
+
 ## Edit and preview
 
 Edit `content.json` to change studio details, page copy, project descriptions, photos and the WhatsApp destination. Then:
