@@ -1,7 +1,6 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const { drawingProgress } = require('./site.js');
 let checks = 0;
 function equal(a, b) { assert.equal(a, b); checks++; }
 function setup({ reduced = false, saveData = false, mobile = false, rejected = false } = {}) {
@@ -30,7 +29,6 @@ function setup({ reduced = false, saveData = false, mobile = false, rejected = f
   s.motion.matches = true; s.motion.change(); equal(s.film.src, '');
   const blocked = setup({ rejected: true }); await Promise.resolve(); equal(blocked.classes.has('is-ready'), false);
   const failed = setup(); failed.events.error(); equal(failed.classes.has('is-ready'), false);
-  equal(drawingProgress(1000, 800), 0); equal(drawingProgress(160, 800), 1); equal(drawingProgress(460, 800), .5); equal(drawingProgress(1000, 800, true), 1);
   const home = fs.readFileSync(__dirname + '/templates/home.html', 'utf8'); equal(home.includes('data-hero-film-control'), false); equal(home.includes('muted loop playsinline'), true);
-  console.log(`Continuous media and scroll drawings: ${checks} checks PASS`);
+  console.log(`Continuous media: ${checks} checks PASS`);
 })().catch(error => { console.error(error); process.exitCode = 1; });

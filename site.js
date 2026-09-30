@@ -17,35 +17,11 @@ function heroScrollState(distance, viewportHeight, reducedMotion = false) {
   };
 }
 
-function drawingProgress(top, viewportHeight, reducedMotion = false) {
-  return reducedMotion ? 1 : Math.max(0, Math.min(1, (viewportHeight * .95 - top) / (viewportHeight * .75)));
-}
 
-if (typeof module !== 'undefined') module.exports = { nextShowcasePosition, heroScrollState, drawingProgress };
+if (typeof module !== 'undefined') module.exports = { nextShowcasePosition, heroScrollState };
 
 if (typeof document !== 'undefined') (() => {
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const drawings = [...document.querySelectorAll('[data-drawing]')];
-  if (drawings.length) {
-    let drawingFrame = 0;
-    const paintDrawings = () => {
-      drawingFrame = 0;
-      drawings.forEach(drawing => {
-        const progress = drawingProgress(drawing.getBoundingClientRect().top, window.innerHeight, motion.matches);
-        drawing.querySelectorAll('[pathLength]').forEach((stroke, index) => {
-          const drawn = motion.matches ? 1 : Math.max(0, Math.min(1, progress * 1.4 - (index % 7) * .065));
-          stroke.style.strokeDasharray = '1';
-          stroke.style.strokeDashoffset = String(1 - drawn);
-        });
-        drawing.style.setProperty('--drawing-progress', progress);
-      });
-    };
-    const scheduleDrawings = () => { if (!drawingFrame) drawingFrame = requestAnimationFrame(paintDrawings); };
-    window.addEventListener('scroll', scheduleDrawings, { passive: true });
-    window.addEventListener('resize', scheduleDrawings);
-    motion.addEventListener('change', scheduleDrawings);
-    paintDrawings();
-  }
   const film = document.querySelector('[data-hero-film]');
   if (film) {
     const phone = window.matchMedia('(max-width: 767px)');

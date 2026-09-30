@@ -1,5 +1,7 @@
 # Photography and fonts
 
+The current `forest-fabric.jpg` is an original AI-generated plain green-black textile background. The red architectural extension and section-sized SVG drawings from earlier iterations are superseded and unused in the current interface.
+
 Photographs are used under the [Pexels license](https://www.pexels.com/license/). Contributors and photographed properties do not endorse this fictional studio.
 
 | Local image | Contributor | Source |

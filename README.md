@@ -4,7 +4,7 @@ A responsive fictional interior-design studio website, created as a demonstratio
 
 Original implementation with a For Living-inspired structure, Prata and Manrope typography, real licensed Pexels photography, responsive layouts, accessible navigation and a WhatsApp contact action.
 
-The homepage continuously loops an eight-second textile-to-architecture film, with separate landscape and portrait files and no playback buttons. Only the screen-appropriate video loads; reduced-motion and data-saving preferences receive a still image. A matching embroidered fabric continues behind the opening photo cards. Three distinct technical drawings build with scrolling: material/joinery detail, spatial planning and an entrance elevation.
+The homepage continuously loops an eight-second textile-to-architecture film, with separate landscape and portrait files and no playback buttons. Only the screen-appropriate video loads; reduced-motion and data-saving preferences receive a still image. Plain green-black fabric sits behind the opening photo cards. Small architectural accents appear selectively throughout the site.
 
 ## Edit and preview
 
