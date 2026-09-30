@@ -64,6 +64,11 @@
 .fl-project-intro>.fl-project-backdrop,.fl-image-hero>.fl-image-hero-media{position:absolute;inset:0;z-index:-2}
 @media(max-width:767px){.hero-film-control{top:calc(90svh - 44px)}.craft-section::before{background-position:110% 2%;background-size:480px auto}.home-services::before{background-position:120% 48%;background-size:440px auto}.closing-cta::before{background-size:620px auto}.site-footer::before{background-position:120% 8%;background-size:420px auto}.fl-page-intro::before{background-position:135% 6%;background-size:480px auto}.fl-about-intro::before{background-position:-18% 100%;background-size:440px auto}.fl-services-intro::before{background-position:128% 36%;background-size:440px auto}.fl-contact::before{background-position:124% 12%;background-size:430px auto}.fl-project-intro::before{background-position:132% 2%;background-size:500px auto}.fl-contact>.fl-contact-layout{grid-template-columns:1fr;grid-template-rows:auto;gap:22px}.fl-contact-layout .fl-contact-copy{display:contents}.fl-contact-layout .fl-contact-copy .display{grid-column:1;grid-row:1}.fl-contact-layout .fl-contact-copy .page-lead{grid-column:1;grid-row:2}.fl-contact-layout .fl-contact-panel{grid-column:1;grid-row:3}.fl-contact-layout .fl-contact-photo{grid-column:1;grid-row:4;max-width:none;aspect-ratio:1.8}.fl-contact{padding-top:128px}}
 
-/* Reference card backdrop: warm textile under an 80% black scrim. */
-.home-hero{background:linear-gradient(rgb(0 0 0 / .8),rgb(0 0 0 / .8)),url("assets/architectural-plan.svg") center top / min(100%,1440px) auto no-repeat,url("assets/textile.jpg") center top / cover;background-color:#100905}
-.hero-film{mask-image:linear-gradient(#000 0 76%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0 76%,transparent 100%)}
+/* The same film remains behind the heading and all three opening cards. */
+.home-hero{overflow:clip;background:#100905}
+.hero-film{position:sticky;top:0;height:100svh;min-height:0;margin-bottom:-100svh;mask-image:none;-webkit-mask-image:none}
+.hero-film::after{display:block;content:"";position:absolute;inset:0;z-index:3;background:#000;opacity:calc((1 - var(--hero-opacity,1)) * .5);pointer-events:none}
+/* Retire decorative plan/lattice patterns across every page. */
+:is(.craft-section,.home-services,.closing-cta,.site-footer,.fl-page-intro,.fl-about-intro,.fl-services-intro,.fl-contact,.fl-project-intro)::before{content:none!important}
+:is(.craft-heading,.showcase-heading .heading,.home-services .heading,.origin-copy .heading,.fl-page-intro .display,.fl-about-intro .display,.fl-services-intro .heading,.fl-contact-copy .display,.fl-project-heading .display)::before{content:none!important}
+.material-board{background:none}

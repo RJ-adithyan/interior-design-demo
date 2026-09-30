@@ -1,6 +1,6 @@
 # Photography and fonts
 
-The card backdrop uses the existing credited `textile.jpg` under a dark overlay. The generated forest fabric, red architectural extension and section-sized SVG drawings from earlier iterations are superseded and unused in the current interface.
+The card backdrop is the continuing hero film. Generated forest fabric, red architectural extension and decorative SVG backgrounds from earlier iterations are superseded and unused in the current interface. The credited textile photograph still appears in the material study.
 
 Photographs are used under the [Pexels license](https://www.pexels.com/license/). Contributors and photographed properties do not endorse this fictional studio.
 
