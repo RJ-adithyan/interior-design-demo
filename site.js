@@ -21,6 +21,70 @@ if (typeof module !== 'undefined') module.exports = { nextShowcasePosition, hero
 
 if (typeof document !== 'undefined') (() => {
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const film = document.querySelector('[data-hero-film]');
+  const filmControl = document.querySelector('[data-hero-film-control]');
+  if (film && filmControl) {
+    const phone = window.matchMedia('(max-width: 767px)');
+    let manuallyPaused = false;
+    let inView = true;
+    let unavailable = false;
+    const syncFilmControl = () => {
+      filmControl.textContent = film.ended ? 'Replay film' : film.paused ? 'Play film' : 'Pause film';
+    };
+    const playFilm = () => {
+      film.play().catch(() => { syncFilmControl(); });
+    };
+    const configureFilm = () => {
+      if (motion.matches || navigator.connection?.saveData) {
+        film.pause();
+        film.removeAttribute('src');
+        film.load();
+        film.classList.remove('is-ready');
+        filmControl.hidden = true;
+        return;
+      }
+      if (unavailable) return;
+      const source = phone.matches ? film.dataset.mobileSrc : film.dataset.desktopSrc;
+      if (inView && !document.hidden && film.getAttribute('src') !== source) {
+        film.classList.remove('is-ready');
+        film.src = source;
+        film.muted = true;
+        filmControl.hidden = false;
+      }
+      if (inView && !document.hidden && !manuallyPaused && !film.ended) playFilm();
+    };
+    film.addEventListener('loadeddata', () => { film.classList.add('is-ready'); });
+    ['play', 'pause', 'ended'].forEach(event => film.addEventListener(event, syncFilmControl));
+    film.addEventListener('error', () => {
+      unavailable = true;
+      film.classList.remove('is-ready');
+      filmControl.hidden = true;
+    });
+    filmControl.addEventListener('click', () => {
+      if (film.paused || film.ended) {
+        manuallyPaused = false;
+        if (film.ended) film.currentTime = 0;
+        playFilm();
+      } else {
+        manuallyPaused = true;
+        film.pause();
+      }
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) film.pause();
+      else configureFilm();
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        inView = entries[0].isIntersecting;
+        if (!inView) film.pause();
+        else configureFilm();
+      }, { threshold: 0 }).observe(film.parentElement);
+    }
+    motion.addEventListener('change', configureFilm);
+    phone.addEventListener('change', configureFilm);
+    configureFilm();
+  }
   const hero = document.querySelector('.home-hero');
   if (hero) {
     const intro = hero.querySelector('.hero-main');

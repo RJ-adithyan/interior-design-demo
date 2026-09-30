@@ -4,6 +4,8 @@ A responsive fictional interior-design studio website, created as a demonstratio
 
 Original implementation with a For Living-inspired structure, Prata and Manrope typography, real licensed Pexels photography, responsive layouts, accessible navigation and a WhatsApp contact action.
 
+The homepage shows an eight-second textile-to-architecture film, with separate landscape and portrait files. Only the screen-appropriate video loads. Visitors can pause or replay it; reduced-motion and data-saving preferences receive a still image. Copper architectural details connect the film to the rest of the site.
+
 ## Edit and preview
 
 Edit `content.json` to change studio details, page copy, project descriptions, photos and the WhatsApp destination. Then:
@@ -11,12 +13,16 @@ Edit `content.json` to change studio details, page copy, project descriptions, p
 ```sh
 python3 render.py
 python3 render.py --check
+node check-motion.cjs
+node check-media.cjs
 python3 -m http.server 8791
 ```
 
 Open `http://localhost:8791/`. Python's standard library is sufficient; no package install is needed.
 
 Generated HTML is committed for static hosting. Source templates live in `templates/`. Styling and browser interactions live in `styles.css` and `site.js`.
+
+The renderer fingerprints CSS and JavaScript URLs so returning visitors receive the matching version. Video files and posters live under `assets/hero-woven-*`.
 
 ## Credits and scope
 

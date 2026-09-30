@@ -6,10 +6,12 @@
 <meta name="description" content="An independent design perspective on light, material and the spaces we inhabit. A fictional studio website concept by RJ.">
 <meta name="theme-color" content="#1b1613">
 <title>The feeling of home — Studio Tharaavu</title>
+<link rel="preload" as="image" href="assets/hero-woven-laptop.jpg" media="(min-width:768px)">
+<link rel="preload" as="image" href="assets/hero-woven-mobile.jpg" media="(max-width:767px)">
 <link rel="preload" href="assets/fonts/prata.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/fonts/manrope.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="styles.css">
-<script src="site.js" defer></script>
+<link rel="stylesheet" href="styles.css?v=58c1cc93fa">
+<script src="site.js?v=49a1363b5a" defer></script>
 </head>
 <body class="page-home">
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -27,7 +29,10 @@
 </header>
 
 <main id="main-content"><section class="home-hero" aria-labelledby="hero-title">
-  <svg class="hero-plan" viewBox="0 0 1440 1000" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width=".8"><path d="M80 200H1280V840H220V400H980V710H440V200M440 400V590H790V710M220 710H80V920M980 400V110M1120 840V1000M440 590H220M790 590V400M1120 300H1340M1120 320H1340M1120 340H1340M1120 360H1340M1120 380H1340M1120 400H1340"/><path d="M440 590A130 130 0 0 1 570 720M440 720H570M980 590A120 120 0 0 0 860 710M980 590V710"/><circle cx="280" cy="285" r="44"/><circle cx="1100" cy="680" r="70"/><path d="M30 150H1400M150 60V960M30 890H1400" stroke-dasharray="3 9"/></g></svg>
+  <div class="hero-film" aria-hidden="true">
+    <picture class="hero-film-poster"><source media="(max-width:767px)" srcset="assets/hero-woven-mobile.jpg"><img src="assets/hero-woven-laptop.jpg" alt="" width="1920" height="1080" fetchpriority="high"></picture>
+    <video class="hero-film-video" muted playsinline preload="none" data-hero-film data-desktop-src="assets/hero-woven-laptop.mp4" data-mobile-src="assets/hero-woven-mobile.mp4"></video>
+  </div>
   <div class="hero-main container">
     <span class="studio-seal" aria-hidden="true">ST</span>
     <p class="hero-kicker">Considered for living</p>
@@ -36,6 +41,7 @@
     <a class="button-link" href="work.html">Explore our spaces</a>
     <p class="hero-sample">Fictional studio · Website demonstration</p>
   </div>
+  <button class="hero-film-control" type="button" data-hero-film-control hidden>Pause film</button>
   <div class="hero-categories container">
     <a class="category-card" href="timber-house.html"><div class="category-photo"><img src="assets/home.jpg" srcset="assets/home-800.jpg 533w, assets/home.jpg 1333w" sizes="(max-width: 767px) calc(100vw - 44px), 50vw" width="1333" height="2000" alt="Timber, cane and plants in a light-filled room" loading="lazy" decoding="async" style="object-position:50% 50%"></div><span class="category-label">Homes</span></a>
     <a class="category-card" href="garden-residence.html"><div class="category-photo"><img src="assets/villa.jpg" srcset="assets/villa-800.jpg 800w, assets/villa.jpg 2000w" sizes="(max-width: 767px) calc(100vw - 44px), 50vw" width="2000" height="1333" alt="Connected living and dining space with an arched doorway" loading="lazy" decoding="async" style="object-position:50% 50%"></div><span class="category-label">Residences</span></a>

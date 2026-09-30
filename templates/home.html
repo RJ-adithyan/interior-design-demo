@@ -1,5 +1,8 @@
 <section class="home-hero" aria-labelledby="hero-title">
-  <svg class="hero-plan" viewBox="0 0 1440 1000" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width=".8"><path d="M80 200H1280V840H220V400H980V710H440V200M440 400V590H790V710M220 710H80V920M980 400V110M1120 840V1000M440 590H220M790 590V400M1120 300H1340M1120 320H1340M1120 340H1340M1120 360H1340M1120 380H1340M1120 400H1340"/><path d="M440 590A130 130 0 0 1 570 720M440 720H570M980 590A120 120 0 0 0 860 710M980 590V710"/><circle cx="280" cy="285" r="44"/><circle cx="1100" cy="680" r="70"/><path d="M30 150H1400M150 60V960M30 890H1400" stroke-dasharray="3 9"/></g></svg>
+  <div class="hero-film" aria-hidden="true">
+    <picture class="hero-film-poster"><source media="(max-width:767px)" srcset="assets/hero-woven-mobile.jpg"><img src="assets/hero-woven-laptop.jpg" alt="" width="1920" height="1080" fetchpriority="high"></picture>
+    <video class="hero-film-video" muted playsinline preload="none" data-hero-film data-desktop-src="assets/hero-woven-laptop.mp4" data-mobile-src="assets/hero-woven-mobile.mp4"></video>
+  </div>
   <div class="hero-main container">
     <span class="studio-seal" aria-hidden="true">ST</span>
     <p class="hero-kicker">$hero_kicker</p>
@@ -8,6 +11,7 @@
     <a class="button-link" href="work.html">$hero_action_label</a>
     <p class="hero-sample">$hero_sample_label</p>
   </div>
+  <button class="hero-film-control" type="button" data-hero-film-control hidden>Pause film</button>
   <div class="hero-categories container">
     <a class="category-card" href="timber-house.html"><div class="category-photo">$home_image</div><span class="category-label">$category_home</span></a>
     <a class="category-card" href="garden-residence.html"><div class="category-photo">$villa_image</div><span class="category-label">$category_villa</span></a>

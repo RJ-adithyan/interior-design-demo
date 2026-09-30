@@ -2,6 +2,7 @@
 """Render this nine-page demonstration with Python's standard library only."""
 import argparse
 import html
+import hashlib
 import json
 import re
 import struct
@@ -96,6 +97,10 @@ def context(data, page):
 
 
 def shell(title, description, body_class, header, body, footer):
+    style_version = hashlib.sha256((ROOT / "styles.css").read_bytes()).hexdigest()[:10]
+    script_version = hashlib.sha256((ROOT / "site.js").read_bytes()).hexdigest()[:10]
+    hero_preload = ('<link rel="preload" as="image" href="assets/hero-woven-laptop.jpg" media="(min-width:768px)">\n'
+                    '<link rel="preload" as="image" href="assets/hero-woven-mobile.jpg" media="(max-width:767px)">') if body_class == "page-home" else ''
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -104,10 +109,11 @@ def shell(title, description, body_class, header, body, footer):
 <meta name="description" content="{esc(description)}">
 <meta name="theme-color" content="#1b1613">
 <title>{esc(title)}</title>
+{hero_preload}
 <link rel="preload" href="assets/fonts/prata.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/fonts/manrope.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="styles.css">
-<script src="site.js" defer></script>
+<link rel="stylesheet" href="styles.css?v={style_version}">
+<script src="site.js?v={script_version}" defer></script>
 </head>
 <body class="{esc(body_class)}">
 {header}
@@ -202,6 +208,14 @@ class PageLinks(HTMLParser):
             self.ids.add(attrs["id"])
         if tag in ("a", "link", "script"):
             self.links.append(attrs.get("href", attrs.get("src", "")))
+        if tag == "video":
+            self.links.extend(attrs[key] for key in ("src", "poster", "data-desktop-src", "data-mobile-src") if key in attrs)
+        if tag == "source":
+            if "src" in attrs:
+                self.links.append(attrs["src"])
+            for candidate in attrs.get("srcset", "").split(","):
+                if candidate.strip():
+                    self.links.append(candidate.strip().split()[0])
         if tag == "img":
             self.images.append(attrs)
             self.links.append(attrs.get("src", ""))
@@ -225,7 +239,7 @@ def check(data):
         if page.h1_count != 1 or page.duplicate_ids:
             failures.append(f"Heading/ID structure problem in {filename}")
         for attrs in page.images:
-            if not attrs.get("alt") or not attrs.get("width") or not attrs.get("height"):
+            if "alt" not in attrs or not attrs.get("width") or not attrs.get("height"):
                 failures.append(f"Image lacks alt/dimensions in {filename}")
     for filename, page in parsed.items():
         for href in page.links:
