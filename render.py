@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render this nine-page demonstration with Python's standard library only."""
+"""Render this demonstration (five pages plus one page per project) with Python's standard library only."""
 import argparse
 import html
 import hashlib
@@ -127,8 +127,9 @@ def shell(title, description, body_class, header, body, footer):
 def load_content():
     data = json.loads((ROOT / "content.json").read_text())
     ids = [project["id"] for project in data["projects"]]
-    if len(ids) != 4 or len(set(ids)) != len(ids) or not all(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", key) for key in ids):
-        raise ValueError("Provide four uniquely named lowercase project IDs")
+    # Templates place projects by position ($project_1_image ... $project_4_image), so four is the floor.
+    if len(ids) < 4 or len(set(ids)) != len(ids) or not all(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", key) for key in ids):
+        raise ValueError("Provide at least four uniquely named lowercase project IDs")
     if not re.fullmatch(r"[1-9][0-9]{7,14}", data["site"]["contact_whatsapp_number"]):
         raise ValueError("WhatsApp number must contain 8–15 digits including country code, without a leading zero")
     for project in data["projects"]:
@@ -153,15 +154,16 @@ def render(data, selected=None):
             f'<div class="media-frame">{image(p["image"], p["alt"], p.get("small_image"), p.get("position", "50% 50%"))}</div>'
             f'<div class="showcase-caption"><h3>{esc(p["name"])}</h3><span>{esc(p["eyebrow"])}</span></div></a>'
             for p in data["projects"])
-        for photo_key, photo_alt in (("home", "Timber, cane and plants in a light-filled room"),
-                                     ("apartment", "Soft daylight beside two cream lounge chairs"),
-                                     ("villa", "Connected living and dining space with an arched doorway"),
-                                     ("commercial", "Pale timber furniture in a bright planted restaurant"),
-                                     ("textile", "Fine red woven fabric texture")):
-            values[f"{photo_key}_image"] = image(f"assets/{photo_key}.jpg", photo_alt, f"assets/{photo_key}-800.jpg")
-        for project in data["projects"]:
-            photo_key = Path(project["image"]).stem
-            values[f"{photo_key}_detail_image"] = image(project["detail_image"], project["detail_caption"], project.get("detail_small_image"))
+        values["textile_image"] = image("assets/textile.jpg", "Fine red woven fabric texture", "assets/textile-800.jpg")
+        categories = list(dict.fromkeys(p["category"] for p in data["projects"]))
+        values["category_filters"] = "\n".join(
+            f'<a href="work.html?category={quote(c)}#projects" data-work-category-filter="{esc(c)}">{esc(c)}</a>' for c in categories)
+        for slot, project in enumerate(data["projects"], 1):
+            values[f"project_{slot}_href"] = esc(project["id"] + ".html")
+            values[f"project_{slot}_name"] = esc(project["name"])
+            values[f"project_{slot}_category"] = esc(project["category"])
+            values[f"project_{slot}_image"] = image(project["image"], project["alt"], project.get("small_image"), project.get("position", "50% 50%"))
+            values[f"project_{slot}_detail_image"] = image(project["detail_image"], project["detail_caption"], project.get("detail_small_image"))
         body = partial(f'{key}.html', values)
         text = shell(f'{info["title"]} — {data["site"]["studio_name"]}', data["site"]["site_description"],
                      "page-home" if key == "home" else f"page-interior page-{key}",
@@ -253,7 +255,7 @@ def check(data):
                 failures.append(f"Missing anchor in {filename}: {href}")
     # A substituted client name must remain text, never executable HTML.
     assert esc('<img src=x onerror="bad()">') == '&lt;img src=x onerror=&quot;bad()&quot;&gt;'
-    assert dimensions("assets/home.jpg")[0] > 0
+    assert dimensions(data["projects"][0]["image"])[0] > 0
     if "contact.html" in parsed:
         contact_links = parsed["contact.html"].links
         whatsapp = [urlsplit(href) for href in contact_links if urlsplit(href).netloc == "wa.me"]
